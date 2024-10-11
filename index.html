@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjumlahan Sederhana</title>
+    <style>
+        /* Gaya umum untuk font dan latar belakang */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #71b7e6, #9b59b6);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
+        }
+
+        .container {
+            background-color: rgba(32, 4, 4, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            color: #ffffff;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #4486ad;
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        button:hover {
+            background-color: #59abb6;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #fff;
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .result.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Penjumlahan Angka</h2>
+        <input type="number" id="number1" placeholder="Masukkan angka pertama" min="0">
+        <input type="number" id="number2" placeholder="Masukkan angka kedua" min="0">
+        <button onclick="calculate()">Hitung Sekarang</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculate() {
+            // Ambil nilai dari input
+            let number1 = parseFloat(document.getElementById("number1").value);
+            let number2 = parseFloat(document.getElementById("number2").value);
+
+            // Periksa jika input valid
+            if (isNaN(number1) || isNaN(number2)) {
+                document.getElementById("result").textContent = "Harap masukkan kedua angka!";
+                document.getElementById("result").classList.add("show");
+                return;
+            }
+
+            // Lakukan operasi penjumlahan
+            let sum = number1 + number2;
+
+            // Tampilkan hasil dengan animasi
+            document.getElementById("result").textContent = "Hasil: " + sum;
+            document.getElementById("result").classList.add("show");
+        }
+    </script>
+
+</body>
+</html>
