@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Penjumlahan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Penjumlahan</h1>
+    <label for="bilangan1">Bilangan pertama:</label>
+    <input type="text" id="bilangan1" value="1">
+    <label for="bilangan2">Bilangan kedua:</label>
+    <input type="text" id="bilangan2" value="2">
+    <button onclick="jumlahkan()">Jumlahkan</button>
+    <button onclick="reset()">Reset</button>
+    <p>Hasil: <span id="hasil"></span></p>
+  </div>
+
+  <script>
+    function jumlahkan() {
+      var bilangan1 = parseInt(document.getElementById("bilangan1").value);
+      var bilangan2 = parseInt(document.getElementById("bilangan2").value);
+      var hasil = bilangan1 + bilangan2;
+      document.getElementById("hasil").innerHTML = hasil;
+    }
+    function reset() {
+      document.getElementById("bilangan1").value = "";
+      document.getElementById("bilangan2").value = "";
+      document.getElementById("hasil ").innerHTML = "";
+    }
+  </script>
+</body>
+</html>
