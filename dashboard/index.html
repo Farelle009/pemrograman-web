@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Manager</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<!-- Navbar -->
+<div class="navbar">
+    <h1 style="margin: 0; color: #e0e0e0">Pengelola Kontak</h1>
+    <nav>
+        <a href="#contactForm">Tambahkan Kontak</a>
+        <a href="#contactList">Daftar Kontak</a>
+    </nav>
+</div>
+
+<!-- Main Content -->
+<div class="contact-form">
+    <h2 id="formTitle">Tambahkan Kontak</h2>
+    <form id="contactForm">
+        <input type="hidden" id="contactId">
+        <div class="form-group">
+            <label for="name">Nama:</label>
+            <input type="text" id="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Nomor:</label>
+            <input type="tel" id="phone">
+        </div>
+        <div class="form-group">
+            <label for="address">Alamat:</label>
+            <input type="text" id="address">
+        </div>
+        <button type="submit" id="submitBtn">Tambah Kontak</button>
+        <button type="button" onclick="resetForm()" style="background: #808080;">Batal</button>
+    </form>
+</div>
+
+<table>
+    <thead>
+    <tr>
+        <th>Nama</th>
+        <th>Email</th>
+        <th>Nomor</th>
+        <th>Alamat</th>
+        <th>Edit/Hapus</th>
+    </tr>
+    </thead>
+    <tbody id="contactList"></tbody>
+</table>
+
+<!-- Footer -->
+<footer class="footer">
+    <p>&copy; 2024 Pengelola Kontak Dibuat Dengan ❤️ Oleh <a href="https://github.com/TitidTerbang">Titid Terbang</a>.</p>
+</footer>
+
+<script src="assets/js/script.js"></script>
+</body>
+</html>
