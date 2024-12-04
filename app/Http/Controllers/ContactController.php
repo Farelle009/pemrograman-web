@@ -8,19 +8,25 @@ use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->has('id')) {
-            $contact = Contact::find($request->id);
-            if ($contact) {
-                return response()->json($contact);
-            } else {
-                return response()->json(['message' => 'Contact not found'], 404);
-            }
+        $contacts = Contact::orderBy('id', 'asc')->get();
+        return view('contacts.index', ['contacts' => $contacts]);
+    }
+
+    public function show($id)
+    {
+        $contact = Contact::find($id);
+        if ($contact) {
+            return view('contacts.show', ['contact' => $contact]);
         } else {
-            $contacts = Contact::orderBy('id', 'asc')->get();
-            return response()->json($contacts);
+            return view('contacts.show')->with('error', 'Contact not found');
         }
+    }
+
+    public function create()
+    {
+        return view('contacts.create');
     }
 
     public function store(Request $request)
@@ -33,7 +39,17 @@ class ContactController extends Controller
         ]);
 
         $contact = Contact::create($validatedData);
-        return response()->json($contact, 201);
+        return redirect('/contacts')->with('success', 'Contact created successfully!');
+    }
+
+    public function edit($id)
+    {
+        $contact = Contact::find($id);
+        if ($contact) {
+            return view('contacts.edit', ['contact' => $contact]);
+        } else {
+            return view('contacts.edit')->with('error', 'Contact not found');
+        }
     }
 
     public function update(Request $request, $id)
@@ -48,12 +64,12 @@ class ContactController extends Controller
         $contact = Contact::find($id);
 
         if (!$contact) {
-            return response()->json(['message' => 'Contact not found'], 404);
+            return redirect()->back()->with('error', 'Contact not found');
         }
 
         $contact->update($validatedData);
 
-        return response()->json(['message' => 'Contact updated', 'id' => $id]);
+        return redirect('/contacts')->with('success', 'Contact updated successfully!');
     }
 
     public function destroy($id)
@@ -61,10 +77,10 @@ class ContactController extends Controller
         $contact = Contact::find($id);
 
         if (!$contact) {
-            return response()->json(['message' => 'Contact not found'], 404);
+            return redirect()->back()->with('error', 'Contact not found');
         }
 
         $contact->delete();
-        return response()->json(['message' => 'Contact deleted', 'id' => $id]);
+        return redirect('/contacts')->with('success', 'Contact deleted successfully!');
     }
 }

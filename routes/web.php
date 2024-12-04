@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -10,3 +11,5 @@ Route::get('/', function () {
 Route::get('/belajar-route', function () {
     return 'Hello World';
 });
+
+Route::resource('contacts', ContactController::class);
