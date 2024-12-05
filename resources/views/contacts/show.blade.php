@@ -24,6 +24,19 @@
 
                 <dt class="col-sm-3">Alamat</dt>
                 <dd class="col-sm-9">{{ $contact->address }}</dd>
+
+                <dt class="col-sm-3">Labels</dt>
+                <dd class="col-sm-9">
+                    @if ($contact->labels->isNotEmpty())
+                        <ul style="padding-left: 0px; margin-bottom: 0px;">
+                            @foreach ($contact->labels as $label)
+                                <li>{{ $label->name }}</li>
+                            @endforeach
+                        </ul>
+                    @else
+                        -
+                    @endif
+                </dd>
             </dl>
             <a href="{{ route('contacts.index') }}" class="btn btn-secondary">Kembali</a>
         @endif

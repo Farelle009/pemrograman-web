@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Contact;
+use App\Models\Label; // Tambahkan ini
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -10,13 +11,15 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::orderBy('id', 'asc')->get();
+        // Eager load relasi 'labels'
+        $contacts = Contact::with('labels')->orderBy('id', 'asc')->get();
         return view('contacts.index', ['contacts' => $contacts]);
     }
 
     public function show($id)
     {
-        $contact = Contact::find($id);
+        // Eager load relasi 'labels'
+        $contact = Contact::with('labels')->find($id);
         if ($contact) {
             return view('contacts.show', ['contact' => $contact]);
         } else {
@@ -26,7 +29,8 @@ class ContactController extends Controller
 
     public function create()
     {
-        return view('contacts.create');
+        $labels = Label::all(); // Dapatkan semua label untuk dropdown
+        return view('contacts.create', ['labels' => $labels]);
     }
 
     public function store(Request $request)
@@ -36,17 +40,31 @@ class ContactController extends Controller
             'email' => ['required', 'email', Rule::unique('contacts')],
             'phone' => 'nullable',
             'address' => 'nullable',
+            'labels' => 'nullable|array',   // Tambahkan validasi untuk labels
+            'labels.*' => 'exists:labels,id' // Pastikan label yang dipilih ada
         ]);
 
-        $contact = Contact::create($validatedData);
+        $contact = Contact::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'address' => $validatedData['address'],
+        ]);
+
+        // Simpan relasi label jika ada
+        if (isset($validatedData['labels'])) {
+            $contact->labels()->attach($validatedData['labels']);
+        }
+
         return redirect('/contacts')->with('success', 'Contact created successfully!');
     }
 
     public function edit($id)
     {
-        $contact = Contact::find($id);
+        $contact = Contact::with('labels')->find($id);
+        $labels = Label::all(); // Dapatkan semua label untuk dropdown/checkbox
         if ($contact) {
-            return view('contacts.edit', ['contact' => $contact]);
+            return view('contacts.edit', ['contact' => $contact, 'labels' => $labels]);
         } else {
             return view('contacts.edit')->with('error', 'Contact not found');
         }
@@ -59,15 +77,25 @@ class ContactController extends Controller
             'email' => ['sometimes', 'required', 'email', Rule::unique('contacts')->ignore($id)],
             'phone' => 'nullable',
             'address' => 'nullable',
+            'labels' => 'nullable|array',    // Tambahkan validasi untuk labels
+            'labels.*' => 'exists:labels,id'  // Pastikan label yang dipilih ada
         ]);
 
-        $contact = Contact::find($id);
+        $contact = Contact::with('labels')->find($id);
 
         if (!$contact) {
             return redirect()->back()->with('error', 'Contact not found');
         }
 
-        $contact->update($validatedData);
+        $contact->update([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'phone' => $validatedData['phone'],
+            'address' => $validatedData['address'],
+        ]);
+
+        // Sync relasi label
+        $contact->labels()->sync($validatedData['labels'] ?? []);
 
         return redirect('/contacts')->with('success', 'Contact updated successfully!');
     }

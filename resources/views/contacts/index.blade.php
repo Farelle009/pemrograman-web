@@ -21,6 +21,7 @@
                 <th>Email</th>
                 <th>Telepon</th>
                 <th>Alamat</th>
+                <th>Labels</th> {{-- Tambahkan kolom Labels --}}
                 <th>Aksi</th>
             </tr>
             </thead>
@@ -32,6 +33,18 @@
                     <td>{{ $contact->email }}</td>
                     <td>{{ $contact->phone }}</td>
                     <td>{{ $contact->address }}</td>
+                    <td>
+                        {{-- Tampilkan daftar label --}}
+                        @if ($contact->labels->isNotEmpty())
+                            <ul style="padding-left: 15px;">
+                                @foreach ($contact->labels as $label)
+                                    <li>{{ $label->name }}</li>
+                                @endforeach
+                            </ul>
+                        @else
+                            -
+                        @endif
+                    </td>
                     <td>
                         <a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-sm btn-info">Detail</a>
                         <a href="{{ route('contacts.edit', $contact->id) }}" class="btn btn-sm btn-warning">Edit</a>

@@ -40,6 +40,15 @@
                 @enderror
             </div>
 
+            <div class="form-group">
+                <label for="labels">Label:</label>
+                <select name="labels[]" id="labels" multiple class="form-control">
+                    @foreach ($labels as $label)
+                        <option value="{{ $label->id }}">{{ $label->name }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary">Simpan</button>
             <a href="{{ route('contacts.index') }}" class="btn btn-secondary">Batal</a>
         </form>
