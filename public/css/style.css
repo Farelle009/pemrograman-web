@@ -1,0 +1,167 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: -webkit-linear-gradient(#6190E8, #A7BFE8);
+    color: #333;
+}
+
+.logo {
+    color: #333;
+    cursor: pointer;
+}
+
+header {
+    width: 100%;
+    height: 73vh;
+    text-align: center;
+    padding: 50px 0;
+    color: #ff3366;
+    border-bottom: 1px solid #e0e0e0;
+    margin: 0;
+}
+
+.png {
+    cursor: default;
+    margin: 0 auto;
+    width: 100%;
+    height: 40vh;
+    font-family: "Playfair", serif;
+    font-size: 20rem;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    color: #333;
+}
+
+.knt {
+    background: -webkit-linear-gradient(#f6d365 0%, #fda085 75%, #ff3366 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+}
+
+.lower {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+    font-family: "Playfair", serif;
+}
+
+.left-side {
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.left-side h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 11.85rem;
+    font-weight: 700;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.right-side {
+    height: auto;
+    width: 32%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Playfair", serif;
+    flex-grow: 1;
+}
+
+.right-side p {
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+}
+
+.footer {
+    font-size: 0.4rem;
+    margin-top: 7.5em;
+}
+
+nav {
+    color: #333333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-left: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333333;
+    font-weight: bold;
+    transition: 0.4s ease;
+}
+
+.nav-links a:hover {
+    color: #ff3366;
+}
+
+
+.menu-toggle {
+    display: none;
+}
+
+.right-side button {
+    background-image: linear-gradient(to right, #f6d365 0%, #fda085 51%, #ff3366 100%);
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1em;
+    cursor: pointer;
+    font-weight: bold;
+    background-size: 200% 100%; /* Tambahkan ini */
+    background-position: left center; /* Inisialisasi posisi background */
+    transition: background-position 0.5s ease; /* Ubah properti yang di-transition */
+}
+
+.right-side button:hover {
+    background-position: right center;
+}
+
+.git {
+    text-decoration: none;
+    transition: 0.4s ease;
+}
+
+.git:visited {
+    color: #333;
+    text-decoration: none;
+}
+
+.git:hover {
+    color: #ff3366;
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    .menu-toggle {
+        display: block;
+        /* Tampilkan ikon menu pada tampilan mobile */
+    }
+}
