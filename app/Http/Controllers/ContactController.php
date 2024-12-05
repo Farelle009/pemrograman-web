@@ -9,11 +9,24 @@ use Illuminate\Validation\Rule;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Eager load relasi 'labels'
-        $contacts = Contact::with('labels')->orderBy('id', 'asc')->get();
-        return view('contacts.index', ['contacts' => $contacts]);
+        $contacts = Contact::with('labels')->orderBy('id', 'asc');
+
+        if ($request->has('search')) {
+            $searchTerm = $request->input('search');
+            $contacts->where(function ($query) use ($searchTerm) {
+                $query->where('name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('email', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('phone', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('address', 'like', '%' . $searchTerm . '%')
+                    ->orWhereHas('labels', function ($query) use ($searchTerm) {
+                        $query->where('name', 'like', '%' . $searchTerm . '%');
+                    });
+            });
+        }
+
+        return view('contacts.index', ['contacts' => $contacts->get(), 'search' => $request->input('search')]); // Sertakan nilai pencarian dalam view
     }
 
     public function show($id)
