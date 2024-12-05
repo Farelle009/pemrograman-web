@@ -56,7 +56,7 @@ class ContactController extends Controller
             $contact->labels()->attach($validatedData['labels']);
         }
 
-        return redirect('/contacts')->with('success', 'Contact created successfully!');
+        return redirect('/contacts')->with('success', 'Kontak berhasil dibuat!');
     }
 
     public function edit($id)
@@ -97,7 +97,7 @@ class ContactController extends Controller
         // Sync relasi label
         $contact->labels()->sync($validatedData['labels'] ?? []);
 
-        return redirect('/contacts')->with('success', 'Contact updated successfully!');
+        return redirect('/contacts')->with('success', 'Kontak berhasil diupdate!');
     }
 
     public function destroy($id)
@@ -109,6 +109,6 @@ class ContactController extends Controller
         }
 
         $contact->delete();
-        return redirect('/contacts')->with('success', 'Contact deleted successfully!');
+        return redirect('/contacts')->with('success', 'Kontak berhasil dihapus!');
     }
 }
