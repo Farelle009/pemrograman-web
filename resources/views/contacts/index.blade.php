@@ -4,7 +4,7 @@
 @section('content')
 <div class="container">
     <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">  {{-- Ditambahkan d-flex --}}
+        <div class="card-header d-flex justify-content-between align-items-center"> {{-- Ditambahkan d-flex --}}
             <h1 class="mb-0">Daftar Kontak</h1>
             <a href="/" class="btn btn-secondary"><i class="fas fa-home"></i> Kembali ke Beranda</a> {{-- Tombol Kembali --}}
         </div>
@@ -101,28 +101,33 @@
 @endsection
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     $(document).ready(function() {
-        $('.delete-button').on('click', function(event) {
-            event.preventDefault();
+        $(document).on('click', '.delete-button', async function(event) {
+            event.preventDefault(); // Mencegah submit default
             let form = $(this).closest("form");
-            let contactId = $(this).data('id');
 
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data kontak akan dihapus permanen!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#dc3545',
-                cancelButtonColor: '#6c757d',
-                confirmButtonText: 'Ya, Hapus!',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
+            try {
+                const result = await Swal.fire({
+                    title: 'Apakah Anda yakin?',
+                    text: "Data kontak akan dihapus permanen!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#dc3545',
+                    cancelButtonColor: '#6c757d',
+                    confirmButtonText: 'Ya, Hapus!',
+                    cancelButtonText: 'Batal'
+                });
+
                 if (result.isConfirmed) {
-                    form.submit();
+                    form.submit(); // Submit formulir secara manual setelah konfirmasi
                 }
-            })
+            } catch (error) {
+                console.error("Error dalam SweetAlert:", error);
+                Swal.fire("Error", "Terjadi kesalahan saat memproses permintaan.", "error");
+            }
         });
     });
 </script>
