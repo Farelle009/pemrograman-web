@@ -12,3 +12,4 @@ Route::apiResource('/contacts', ContactController::class);
 
 Route::get('/contacts/create', [ContactController::class, 'create']);
 Route::get('/contacts/{contact}/edit', [ContactController::class, 'edit']);
+Route::get('/labels', [ContactController::class, 'getLabels']);

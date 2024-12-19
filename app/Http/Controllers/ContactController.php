@@ -121,4 +121,11 @@ class ContactController extends Controller
         $contact->delete();
         return response()->json(['message' => 'Contact deleted successfully']);
     }
+
+    public function getLabels()
+    {
+        $labels = Label::all();
+        return response()->json($labels);
+    }
+
 }
