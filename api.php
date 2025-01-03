@@ -25,7 +25,7 @@ switch($method) {
             }
         } else {
             // Get all contacts
-            $stmt = $pdo->query("SELECT * FROM contacts ORDER BY created_at DESC");
+            $stmt = $pdo->query("SELECT * FROM contacts ORDER BY id ASC");
             $contacts = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode($contacts);
         }

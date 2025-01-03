@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost/kontak-pribadi/api.php';
+const API_URL = 'http://localhost/modul4/kontak-pribadi/api.php';
 let contacts = [];
 let isEditing = false;
 
